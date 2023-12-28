@@ -1,0 +1,33 @@
+#Tkinter PDF Text Extractor  Python 
+
+import tkinter
+from tkinter import filedialog
+import PyPDF2
+
+def openfile():
+    filename = filedialog.askopenfilename(
+        title="Open PDF file",
+        initialdir=r'C:\Users\navipro_gypa\Desktop\PTY\Tkinter PFD Extractor',
+        filetypes=[('PDF files', '*.pdf')])
+
+    print(filename)
+
+
+    outputfile_text.delete("1.0", tkinter.END)
+    reader = PyPDF2.PdfReader(filename)
+    for i in range(len(reader.pages)):
+        current_text = reader.pages[i].extract_text()
+        outputfile_text.insert(tkinter.END, current_text)
+
+root = tkinter.Tk()
+root.title("PDF Text Extractor")
+
+filename_label = tkinter.Label(root, text=" File Selector")
+outputfile_text = tkinter.Text(root)
+openfile_button = tkinter.Button(root, text="Open PDF File", bg="Pink", command=openfile)
+
+filename_label.pack()
+outputfile_text.pack()
+openfile_button.pack()
+
+root.mainloop()
